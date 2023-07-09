@@ -1,7 +1,7 @@
 package demo;
 
-import demo.bean.Event;
-import demo.functions.RandomEventTsSource;
+import demo.bean.taxi.datatypes.TaxiFare;
+import demo.bean.taxi.sources.TaxiFareGenerator;
 import demo.functions.WatermarkPrintSink;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -13,15 +13,11 @@ public class EventTimeAndWatermarkAssign {
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env
-                .addSource(
-                        new RandomEventTsSource(
-                                RandomEventTsSource.Level.LEVEL_1,
-                                RandomEventTsSource.Level.LEVEL_3,
-                                RandomEventTsSource.Level.LEVEL_2))
+                .addSource(new TaxiFareGenerator())
                 .assignTimestampsAndWatermarks(
-                        WatermarkStrategy.<Event>forBoundedOutOfOrderness(Duration.ofSeconds(3))
+                        WatermarkStrategy.<TaxiFare>forBoundedOutOfOrderness(Duration.ofSeconds(3))
                                 .withTimestampAssigner(
-                                        (event, ts) -> event.getTimestamp()))
+                                        (fare, t) -> fare.getEventTimeMillis()))
                 .addSink(new WatermarkPrintSink<>());
 
         env.execute();
