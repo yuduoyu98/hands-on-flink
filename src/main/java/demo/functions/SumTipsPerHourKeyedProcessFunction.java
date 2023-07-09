@@ -1,6 +1,7 @@
 package demo.functions;
 
 
+import demo.HourlyMaxTipsDriver;
 import demo.bean.taxi.datatypes.TaxiFare;
 import org.apache.flink.api.common.state.MapState;
 import org.apache.flink.api.common.state.MapStateDescriptor;
@@ -11,7 +12,6 @@ import org.apache.flink.streaming.api.TimerService;
 import org.apache.flink.streaming.api.functions.KeyedProcessFunction;
 import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.util.Collector;
-import org.apache.flink.util.OutputTag;
 
 import java.util.concurrent.TimeUnit;
 
@@ -22,9 +22,6 @@ import java.util.concurrent.TimeUnit;
 public class SumTipsPerHourKeyedProcessFunction extends KeyedProcessFunction<Long, TaxiFare, Tuple3<Long, Long, Float>> {
 
     private transient MapState<Long, Float> sumPerHour;
-
-    private static final OutputTag<TaxiFare> lateFares = new OutputTag<TaxiFare>("lateFares") {
-    };
 
     private final long duration;
 
@@ -55,7 +52,7 @@ public class SumTipsPerHourKeyedProcessFunction extends KeyedProcessFunction<Lon
         TimerService timerService = ctx.timerService();
         if (eventTs <= timerService.currentWatermark()) {
             //迟到事件处理：侧输出流
-            ctx.output(lateFares, fare);
+            ctx.output(HourlyMaxTipsDriver.lateFares, fare);
         } else {
             //计算窗口结束时间，注册窗口Timer
             long windowEndTs = (eventTs / duration + 1) * duration;

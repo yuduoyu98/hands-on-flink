@@ -27,6 +27,7 @@ import org.apache.flink.api.common.typeinfo.TypeInformation;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.tuple.Tuple3;
 import org.apache.flink.streaming.api.datastream.DataStream;
+import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.sink.PrintSinkFunction;
 import org.apache.flink.streaming.api.functions.sink.SinkFunction;
@@ -37,6 +38,7 @@ import org.apache.flink.streaming.api.windowing.assigners.TumblingEventTimeWindo
 import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.util.Collector;
+import org.apache.flink.util.OutputTag;
 
 import java.util.HashMap;
 
@@ -50,6 +52,9 @@ public class HourlyMaxTipsDriver {
 
     private final SourceFunction<TaxiFare> source;
     private final SinkFunction<Tuple3<Long, Long, Float>> sink;
+
+    public static final OutputTag<TaxiFare> lateFares = new OutputTag<TaxiFare>("lateFares") {
+    };
 
     /** Creates a job using the source and sink provided. */
     public HourlyMaxTipsDriver(
@@ -178,10 +183,12 @@ public class HourlyMaxTipsDriver {
      */
     @SuppressWarnings("unused")
     private static DataStream<Tuple3<Long, Long, Float>> solution3(DataStream<TaxiFare> fares) {
-        return fares
+        SingleOutputStreamOperator<Tuple3<Long, Long, Float>> hourlySum = fares
                 .keyBy(fare -> fare.driverId)
                 //KeyedProcessFunction实现一个1h滚动窗口计算
-                .process(new SumTipsPerHourKeyedProcessFunction(Time.hours(1)))
+                .process(new SumTipsPerHourKeyedProcessFunction(Time.hours(1)));
+        hourlySum.getSideOutput(lateFares).print();
+        return hourlySum
                 .windowAll(TumblingEventTimeWindows.of(Time.hours(1)))
                 .max(2);
     }
