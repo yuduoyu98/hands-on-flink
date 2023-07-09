@@ -13,7 +13,11 @@ public class EventTimeAndWatermarkAssign {
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env
-                .addSource(new RandomEventTsSource(5, 100))
+                .addSource(
+                        new RandomEventTsSource(
+                                RandomEventTsSource.Level.LEVEL_1,
+                                RandomEventTsSource.Level.LEVEL_3,
+                                RandomEventTsSource.Level.LEVEL_2))
                 .assignTimestampsAndWatermarks(
                         WatermarkStrategy.<Event>forBoundedOutOfOrderness(Duration.ofSeconds(3))
                                 .withTimestampAssigner(

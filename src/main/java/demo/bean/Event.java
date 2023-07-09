@@ -2,12 +2,14 @@ package demo.bean;
 
 import lombok.*;
 
-import java.text.DecimalFormat;
-
+/**
+ *
+ */
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Event {
 
     /**
@@ -21,24 +23,13 @@ public class Event {
     private long timestamp;
 
     /**
-     * 销售额
+     * 单句话提及次数
      */
-    private double sells;
+    private int count;
 
     /**
-     * 商品ID
+     * 关键词
      */
-    private int skuID;
+    private String keyword;
 
-    private static DecimalFormat decimalFormat = new DecimalFormat("#.#");
-
-    @Override
-    public String toString() {
-        return "Event{" +
-                "id=" + id +
-                ", timestamp=" + timestamp +
-                ", skuID=" + skuID +
-                ", sells=" + decimalFormat.format(sells) +
-                '}';
-    }
 }
