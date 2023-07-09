@@ -53,6 +53,12 @@
             <scope>runtime</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.22</version>
+        </dependency>
+
     </dependencies>
 
     <!--https://nightlies.apache.org/flink/flink-docs-release-1.17/zh/docs/dev/configuration/maven/-->
