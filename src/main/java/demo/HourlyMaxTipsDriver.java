@@ -18,8 +18,8 @@
 
 package demo;
 
-import demo.bean.taxi.datatypes.TaxiFare;
-import demo.bean.taxi.sources.TaxiFareGenerator;
+import common.bean.taxi.datatypes.TaxiFare;
+import common.bean.taxi.sources.TaxiFareGenerator;
 import demo.functions.SumTipsPerHourKeyedProcessFunction;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.typeinfo.TypeHint;

@@ -16,10 +16,10 @@
  * limitations under the License.
  */
 
-package demo.bean.taxi.sources;
+package common.bean.taxi.sources;
 
-import demo.bean.taxi.datatypes.TaxiFare;
-import demo.bean.taxi.utils.DataGenerator;
+import common.bean.taxi.datatypes.TaxiFare;
+import common.bean.taxi.utils.DataGenerator;
 import org.apache.flink.streaming.api.functions.source.SourceFunction;
 
 import java.time.Duration;

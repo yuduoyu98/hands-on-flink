@@ -2,7 +2,7 @@ package demo.functions;
 
 
 import demo.HourlyMaxTipsDriver;
-import demo.bean.taxi.datatypes.TaxiFare;
+import common.bean.taxi.datatypes.TaxiFare;
 import org.apache.flink.api.common.state.MapState;
 import org.apache.flink.api.common.state.MapStateDescriptor;
 import org.apache.flink.api.common.typeinfo.Types;

@@ -14,6 +14,7 @@ public class Fibonacci {
         //计算前n个数
         final int n = 10;
 
+        //DataSet API
         ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
 
         DataSource<Tuple2<Long, Long>> input = env.fromElements(

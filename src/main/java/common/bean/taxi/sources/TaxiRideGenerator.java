@@ -16,10 +16,10 @@
  * limitations under the License.
  */
 
-package demo.bean.taxi.sources;
+package common.bean.taxi.sources;
 
 
-import demo.bean.taxi.datatypes.TaxiRide;
+import common.bean.taxi.datatypes.TaxiRide;
 import org.apache.flink.streaming.api.functions.source.SourceFunction;
 
 import java.util.ArrayList;

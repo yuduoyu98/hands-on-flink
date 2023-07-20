@@ -16,10 +16,10 @@
  * limitations under the License.
  */
 
-package demo.bean.taxi.datatypes;
+package common.bean.taxi.datatypes;
 
-import demo.bean.taxi.utils.DataGenerator;
-import demo.bean.taxi.utils.GeoUtils;
+import common.bean.taxi.utils.DataGenerator;
+import common.bean.taxi.utils.GeoUtils;
 import org.apache.flink.annotation.VisibleForTesting;
 import org.apache.flink.streaming.runtime.streamrecord.StreamRecord;
 

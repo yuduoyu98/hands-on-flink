@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package demo.bean.taxi.utils;
+package common.bean.taxi.utils;
 
 import java.time.Instant;
 import java.util.Random;

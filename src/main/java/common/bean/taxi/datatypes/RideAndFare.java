@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package demo.bean.taxi.datatypes;
+package common.bean.taxi.datatypes;
 
 import java.io.Serializable;
 

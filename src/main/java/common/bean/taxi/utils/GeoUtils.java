@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package demo.bean.taxi.utils;
+package common.bean.taxi.utils;
 
 import java.util.ArrayList;
 import java.util.List;
