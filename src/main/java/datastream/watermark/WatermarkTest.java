@@ -32,6 +32,15 @@ import java.time.Duration;
  *     还是需要发送n条后的第n+1条（n为<tt>sink</tt>上游算子并行度），才能看到<tt>watermark</tt>更新
  *     因为涉及到多入度情况下<tt>watermark</tt>会等待所有入度的<tt>watermark</tt>到达后拿最大的当作
  * </pre>
+ * <p> <strong>源码分析</strong>：
+ * <ul>
+ *    <li>{@link org.apache.flink.streaming.api.datastream.DataStream#assignTimestampsAndWatermarks DataStream#assignTimestampsAndWatermarks}后4并行度汇总为1并行度的<tt>Sink</tt>
+ *    <li>{@link org.apache.flink.streaming.runtime.io.AbstractStreamTaskNetworkInput#processElement StreamTaskNetworkInput#processElement}处理每个<tt>StreamRecord</tt>
+ *    <li>{@link org.apache.flink.streaming.runtime.watermarkstatus.StatusWatermarkValve#inputWatermark StatusWatermarkValve#inputWatermark}处理收到的来自每个<tt>channel</tt>的<tt>watermark</tt>
+ *    <li>{@link org.apache.flink.streaming.runtime.watermarkstatus.HeapPriorityQueue watermarkstatus.HeapPriorityQueue}(非{@link org.apache.flink.runtime.state.heap.HeapPriorityQueue heap.HeapPriorityQueue})对各个<tt>channel</tt>的<tt>watermark</tt>进行排序（最小堆排序）
+ *    <li>每当从某个<tt>channel</tt>收到新的<tt>watermark</tt>时，会先更新信道状态{@link org.apache.flink.streaming.runtime.watermarkstatus.StatusWatermarkValve#channelStatuses channelStatuses}，然后调整堆的排序{@link org.apache.flink.streaming.runtime.watermarkstatus.HeapPriorityQueue#adjustModifiedElement adjustModifiedElement}
+ *    <li>{@link org.apache.flink.streaming.runtime.watermarkstatus.StatusWatermarkValve#findAndOutputNewMinWatermarkAcrossAlignedChannels StatusWatermarkValve#findAndOutputNewMinWatermarkAcrossAlignedChannels}尝试<tt>emit watermark</tt>（堆最小<tt>watermark</tt>大于上次<tt>emit</tt>的<tt>watermark</tt>）
+ * </ul>
  */
 public class WatermarkTest {
     public static void main(String[] args) throws Exception {
