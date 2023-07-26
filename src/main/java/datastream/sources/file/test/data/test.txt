@@ -1,0 +1,11 @@
+hello,flink!
+hello,java!
+[虚拟机大数据环境构建](https://www.notion.so/e9484819390a45a48e95bdbca2437f72?pvs=21)
+[Flink 17 入门](https://www.notion.so/Flink-17-4c0a10802996445ba6c5c164aae795e0?pvs=21)
+[Flink Stream API](https://www.notion.so/Flink-Stream-API-9d237902439942c098d9d9286170604f?pvs=21)
+[任务拆分和规划](https://www.notion.so/0ac939bb0ba844ab8eab1a900117db86?pvs=21)
+[《算法》3.1 符号表](https://www.notion.so/3-1-9501acc4a0d6456d9006fb1610d082ff?pvs=21)
+[《算法》3.2 二叉查找树](https://www.notion.so/3-2-702f6a314f3d4e64946edfa556dbe138?pvs=21)
+[《算法》3.3 平衡二叉树](https://www.notion.so/3-3-d8e4df955d2b403da92f4123ddc56c66?pvs=21)
+[《算法》3.4 散列表](https://www.notion.so/3-4-6f20814b15234646b306cd46083358cc?pvs=21)
+[《算法》3.5 应用](https://www.notion.so/3-5-25f9f89c7ff44ca0ac818bf9d72c6453?pvs=21)

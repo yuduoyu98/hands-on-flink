@@ -61,6 +61,7 @@ public class WatermarkTest {
                 )
                 .disableChaining()
                 .addSink(new WatermarkPrintSink<>())
+                .name("WatermarkPrintSink")
                 .setParallelism(1);
 
         env.execute("Watermark测试");
